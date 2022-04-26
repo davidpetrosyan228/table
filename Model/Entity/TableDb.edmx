@@ -1,0 +1,800 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TableCollegeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="className" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="DayType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="LessonObject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="LessonObject_Has_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LessonObjectId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="LessonObjectId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="LessonsAtDay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DayId" Type="int" Nullable="false" />
+          <Property Name="WeekId" Type="int" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
+          <Property Name="LessonObjectId" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Passport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Serial" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Puplis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Login" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="PassportId" Type="int" Nullable="false" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="WeekType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK__User__CityId__2B3F6F97">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__RoleId__2A4B4B5E">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Class" Type="Self.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonObject_Has_User_LessonObject1">
+          <End Role="LessonObject" Type="Self.LessonObject" Multiplicity="1" />
+          <End Role="LessonObject_Has_User" Type="Self.LessonObject_Has_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonObject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonObject_Has_User">
+              <PropertyRef Name="LessonObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonObject_Has_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LessonObject_Has_User" Type="Self.LessonObject_Has_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonObject_Has_User">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsAtDay_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="LessonsAtDay" Type="Self.LessonsAtDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonsAtDay">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsAtDay_DayType">
+          <End Role="DayType" Type="Self.DayType" Multiplicity="1" />
+          <End Role="LessonsAtDay" Type="Self.LessonsAtDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DayType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonsAtDay">
+              <PropertyRef Name="DayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsAtDay_LessonObject">
+          <End Role="LessonObject" Type="Self.LessonObject" Multiplicity="1" />
+          <End Role="LessonsAtDay" Type="Self.LessonsAtDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonObject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonsAtDay">
+              <PropertyRef Name="LessonObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsAtDay_WeekType">
+          <End Role="WeekType" Type="Self.WeekType" Multiplicity="1" />
+          <End Role="LessonsAtDay" Type="Self.LessonsAtDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeekType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonsAtDay">
+              <PropertyRef Name="WeekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Puplis_Class1">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Puplis" Type="Self.Puplis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Puplis">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Passport">
+          <End Role="Passport" Type="Self.Passport" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="PassportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TableCollegeModelContainer">
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DayType" EntityType="Self.DayType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonObject" EntityType="Self.LessonObject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonObject_Has_User" EntityType="Self.LessonObject_Has_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonsAtDay" EntityType="Self.LessonsAtDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Passport" EntityType="Self.Passport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Puplis" EntityType="Self.Puplis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeekType" EntityType="Self.WeekType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__User__CityId__2B3F6F97" Association="Self.FK__User__CityId__2B3F6F97">
+            <End Role="City" EntitySet="City" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__RoleId__2A4B4B5E" Association="Self.FK__User__RoleId__2A4B4B5E">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_User1" Association="Self.FK_Class_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Class" EntitySet="Class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonObject_Has_User_LessonObject1" Association="Self.FK_LessonObject_Has_User_LessonObject1">
+            <End Role="LessonObject" EntitySet="LessonObject" />
+            <End Role="LessonObject_Has_User" EntitySet="LessonObject_Has_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonObject_Has_User_User" Association="Self.FK_LessonObject_Has_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LessonObject_Has_User" EntitySet="LessonObject_Has_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsAtDay_Class" Association="Self.FK_LessonsAtDay_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="LessonsAtDay" EntitySet="LessonsAtDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsAtDay_DayType" Association="Self.FK_LessonsAtDay_DayType">
+            <End Role="DayType" EntitySet="DayType" />
+            <End Role="LessonsAtDay" EntitySet="LessonsAtDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsAtDay_LessonObject" Association="Self.FK_LessonsAtDay_LessonObject">
+            <End Role="LessonObject" EntitySet="LessonObject" />
+            <End Role="LessonsAtDay" EntitySet="LessonsAtDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsAtDay_WeekType" Association="Self.FK_LessonsAtDay_WeekType">
+            <End Role="WeekType" EntitySet="WeekType" />
+            <End Role="LessonsAtDay" EntitySet="LessonsAtDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Puplis_Class1" Association="Self.FK_Puplis_Class1">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Puplis" EntitySet="Puplis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Passport" Association="Self.FK_User_Passport">
+            <End Role="Passport" EntitySet="Passport" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TableCollegeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK__User__CityId__2B3F6F97" FromRole="City" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="className" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Class_User1" FromRole="Class" ToRole="User" />
+          <NavigationProperty Name="LessonsAtDay" Relationship="Self.FK_LessonsAtDay_Class" FromRole="Class" ToRole="LessonsAtDay" />
+          <NavigationProperty Name="Puplis" Relationship="Self.FK_Puplis_Class1" FromRole="Class" ToRole="Puplis" />
+        </EntityType>
+        <EntityType Name="DayType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="LessonsAtDay" Relationship="Self.FK_LessonsAtDay_DayType" FromRole="DayType" ToRole="LessonsAtDay" />
+        </EntityType>
+        <EntityType Name="LessonObject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="LessonObject_Has_User" Relationship="Self.FK_LessonObject_Has_User_LessonObject1" FromRole="LessonObject" ToRole="LessonObject_Has_User" />
+          <NavigationProperty Name="LessonsAtDay" Relationship="Self.FK_LessonsAtDay_LessonObject" FromRole="LessonObject" ToRole="LessonsAtDay" />
+        </EntityType>
+        <EntityType Name="LessonObject_Has_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LessonObjectId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="LessonObjectId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="LessonObject" Relationship="Self.FK_LessonObject_Has_User_LessonObject1" FromRole="LessonObject_Has_User" ToRole="LessonObject" />
+          <NavigationProperty Name="User" Relationship="Self.FK_LessonObject_Has_User_User" FromRole="LessonObject_Has_User" ToRole="User" />
+        </EntityType>
+        <EntityType Name="LessonsAtDay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DayId" Type="Int32" Nullable="false" />
+          <Property Name="WeekId" Type="Int32" Nullable="false" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="LessonObjectId" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="Self.FK_LessonsAtDay_Class" FromRole="LessonsAtDay" ToRole="Class" />
+          <NavigationProperty Name="DayType" Relationship="Self.FK_LessonsAtDay_DayType" FromRole="LessonsAtDay" ToRole="DayType" />
+          <NavigationProperty Name="LessonObject" Relationship="Self.FK_LessonsAtDay_LessonObject" FromRole="LessonsAtDay" ToRole="LessonObject" />
+          <NavigationProperty Name="WeekType" Relationship="Self.FK_LessonsAtDay_WeekType" FromRole="LessonsAtDay" ToRole="WeekType" />
+        </EntityType>
+        <EntityType Name="Passport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Passport" FromRole="Passport" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Puplis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Class" Relationship="Self.FK_Puplis_Class1" FromRole="Puplis" ToRole="Class" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK__User__RoleId__2A4B4B5E" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PassportId" Type="Int32" Nullable="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="City" Relationship="Self.FK__User__CityId__2B3F6F97" FromRole="User" ToRole="City" />
+          <NavigationProperty Name="Class" Relationship="Self.FK_Class_User1" FromRole="User" ToRole="Class" />
+          <NavigationProperty Name="LessonObject_Has_User" Relationship="Self.FK_LessonObject_Has_User_User" FromRole="User" ToRole="LessonObject_Has_User" />
+          <NavigationProperty Name="Passport" Relationship="Self.FK_User_Passport" FromRole="User" ToRole="Passport" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User__RoleId__2A4B4B5E" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="WeekType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="LessonsAtDay" Relationship="Self.FK_LessonsAtDay_WeekType" FromRole="WeekType" ToRole="LessonsAtDay" />
+        </EntityType>
+        <Association Name="FK__User__CityId__2B3F6F97">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Class_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Class" Type="Self.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsAtDay_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="LessonsAtDay" Type="Self.LessonsAtDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonsAtDay">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Puplis_Class1">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Puplis" Type="Self.Puplis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Puplis">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsAtDay_DayType">
+          <End Role="DayType" Type="Self.DayType" Multiplicity="1" />
+          <End Role="LessonsAtDay" Type="Self.LessonsAtDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DayType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonsAtDay">
+              <PropertyRef Name="DayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonObject_Has_User_LessonObject1">
+          <End Role="LessonObject" Type="Self.LessonObject" Multiplicity="1" />
+          <End Role="LessonObject_Has_User" Type="Self.LessonObject_Has_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonObject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonObject_Has_User">
+              <PropertyRef Name="LessonObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsAtDay_LessonObject">
+          <End Role="LessonObject" Type="Self.LessonObject" Multiplicity="1" />
+          <End Role="LessonsAtDay" Type="Self.LessonsAtDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonObject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonsAtDay">
+              <PropertyRef Name="LessonObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonObject_Has_User_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LessonObject_Has_User" Type="Self.LessonObject_Has_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonObject_Has_User">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonsAtDay_WeekType">
+          <End Role="WeekType" Type="Self.WeekType" Multiplicity="1" />
+          <End Role="LessonsAtDay" Type="Self.LessonsAtDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeekType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LessonsAtDay">
+              <PropertyRef Name="WeekId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Passport">
+          <End Role="Passport" Type="Self.Passport" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="PassportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__RoleId__2A4B4B5E">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TableCollegeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="City" EntityType="Self.City" />
+          <EntitySet Name="Class" EntityType="Self.Class" />
+          <EntitySet Name="DayType" EntityType="Self.DayType" />
+          <EntitySet Name="LessonObject" EntityType="Self.LessonObject" />
+          <EntitySet Name="LessonObject_Has_User" EntityType="Self.LessonObject_Has_User" />
+          <EntitySet Name="LessonsAtDay" EntityType="Self.LessonsAtDay" />
+          <EntitySet Name="Passport" EntityType="Self.Passport" />
+          <EntitySet Name="Puplis" EntityType="Self.Puplis" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="WeekType" EntityType="Self.WeekType" />
+          <AssociationSet Name="FK__User__CityId__2B3F6F97" Association="Self.FK__User__CityId__2B3F6F97">
+            <End Role="City" EntitySet="City" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Class_User1" Association="Self.FK_Class_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Class" EntitySet="Class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsAtDay_Class" Association="Self.FK_LessonsAtDay_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="LessonsAtDay" EntitySet="LessonsAtDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Puplis_Class1" Association="Self.FK_Puplis_Class1">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Puplis" EntitySet="Puplis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsAtDay_DayType" Association="Self.FK_LessonsAtDay_DayType">
+            <End Role="DayType" EntitySet="DayType" />
+            <End Role="LessonsAtDay" EntitySet="LessonsAtDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonObject_Has_User_LessonObject1" Association="Self.FK_LessonObject_Has_User_LessonObject1">
+            <End Role="LessonObject" EntitySet="LessonObject" />
+            <End Role="LessonObject_Has_User" EntitySet="LessonObject_Has_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsAtDay_LessonObject" Association="Self.FK_LessonsAtDay_LessonObject">
+            <End Role="LessonObject" EntitySet="LessonObject" />
+            <End Role="LessonsAtDay" EntitySet="LessonsAtDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonObject_Has_User_User" Association="Self.FK_LessonObject_Has_User_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LessonObject_Has_User" EntitySet="LessonObject_Has_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonsAtDay_WeekType" Association="Self.FK_LessonsAtDay_WeekType">
+            <End Role="WeekType" EntitySet="WeekType" />
+            <End Role="LessonsAtDay" EntitySet="LessonsAtDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Passport" Association="Self.FK_User_Passport">
+            <End Role="Passport" EntitySet="Passport" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__RoleId__2A4B4B5E" Association="Self.FK__User__RoleId__2A4B4B5E">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TableCollegeModelContainer" CdmEntityContainer="TableCollegeEntities">
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="TableCollegeModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="City1" ColumnName="City" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Class">
+            <EntityTypeMapping TypeName="TableCollegeModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="className" ColumnName="className" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DayType">
+            <EntityTypeMapping TypeName="TableCollegeModel.DayType">
+              <MappingFragment StoreEntitySet="DayType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonObject">
+            <EntityTypeMapping TypeName="TableCollegeModel.LessonObject">
+              <MappingFragment StoreEntitySet="LessonObject">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonObject_Has_User">
+            <EntityTypeMapping TypeName="TableCollegeModel.LessonObject_Has_User">
+              <MappingFragment StoreEntitySet="LessonObject_Has_User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LessonObjectId" ColumnName="LessonObjectId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonsAtDay">
+            <EntityTypeMapping TypeName="TableCollegeModel.LessonsAtDay">
+              <MappingFragment StoreEntitySet="LessonsAtDay">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DayId" ColumnName="DayId" />
+                <ScalarProperty Name="WeekId" ColumnName="WeekId" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="LessonObjectId" ColumnName="LessonObjectId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Passport">
+            <EntityTypeMapping TypeName="TableCollegeModel.Passport">
+              <MappingFragment StoreEntitySet="Passport">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Puplis">
+            <EntityTypeMapping TypeName="TableCollegeModel.Puplis">
+              <MappingFragment StoreEntitySet="Puplis">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="TableCollegeModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TableCollegeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="TableCollegeModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PassportId" ColumnName="PassportId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeekType">
+            <EntityTypeMapping TypeName="TableCollegeModel.WeekType">
+              <MappingFragment StoreEntitySet="WeekType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
